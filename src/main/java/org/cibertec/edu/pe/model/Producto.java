@@ -1,8 +1,13 @@
-package org.cibertec.edu.pe.modelo;
+package org.cibertec.edu.pe.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -10,37 +15,52 @@ import javax.persistence.Table;
 public class Producto {
 	
 	@Id
-	private String IdProducto;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "IdProducto")
+	private int IdProducto;
+	@Column(name = "Nombre")
 	private String Nombre;
+	@Column(name = "Descripcion")
 	private String Descripcion;
-	private int IdCategoria;
+	@ManyToOne
+	@JoinColumn(name = "IdCategoria")
+	@Column(name = "IdCategoria")
+	private Categoria categoria;
+	@Column(name = "Talla")
 	private String Talla;
+	@Column(name = "Precio")
 	private double Precio;
+	@Column(name = "Stock")
 	private int Stock;
+	@Column(name = "Imagen")
+	private String Imagen;
+	@Column(name = "Estado")
 	private boolean Estado;
 	
 	public Producto() {
 		
 	}
 
-	public Producto(String idProducto, String nombre, String descripcion, int idCategoria, String talla, double precio,
-			int stock, boolean estado) {
-	
+	public Producto(int idProducto, String nombre, String descripcion, Categoria categoria, String talla, double precio,
+			int stock, String imagen, boolean estado) {
 		IdProducto = idProducto;
 		Nombre = nombre;
 		Descripcion = descripcion;
-		IdCategoria = idCategoria;
+		this.categoria = categoria;
 		Talla = talla;
 		Precio = precio;
 		Stock = stock;
+		Imagen = imagen;
 		Estado = estado;
 	}
 
-	public String getIdProducto() {
+
+
+	public int getIdProducto() {
 		return IdProducto;
 	}
 
-	public void setIdProducto(String idProducto) {
+	public void setIdProducto(int idProducto) {
 		IdProducto = idProducto;
 	}
 
@@ -60,12 +80,12 @@ public class Producto {
 		Descripcion = descripcion;
 	}
 
-	public int getIdCategoria() {
-		return IdCategoria;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setIdCategoria(int idCategoria) {
-		IdCategoria = idCategoria;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public String getTalla() {
@@ -90,6 +110,14 @@ public class Producto {
 
 	public void setStock(int stock) {
 		Stock = stock;
+	}
+	
+	public String getImagen() {
+		return Imagen;
+	}
+
+	public void setImagen(String imagen) {
+		Imagen = imagen;
 	}
 
 	public boolean isEstado() {

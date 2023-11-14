@@ -3,8 +3,8 @@ package org.cibertec.edu.pe.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.cibertec.edu.pe.interfaceService.IClienteService;
-import org.cibertec.edu.pe.modelo.Cliente;
+import org.cibertec.edu.pe.model.Cliente;
+import org.cibertec.edu.pe.repositoryService.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,56 +14,56 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping
+@RequestMapping("/clientes")
 public class ClienteController {
-	
+
 	@Autowired
 	private IClienteService servicio;
-	
+
 	// Método para Listar
-		@GetMapping("/listar") 
-		public String Listar(Model m) {
-			List<Cliente> lista = servicio.ListadoClient();
-			m.addAttribute("cliente", lista);
-			return "listarClientes";  
-		}
-		
-		// Método para Buscar
-		@GetMapping("/ver/{id}")  
-		public String ver(@PathVariable String id, Model m) {
-			Optional<Cliente> p = servicio.BuscarClient(id);
-			m.addAttribute("Cliente", p);
-			return "view";   
-		}
-		
-		// Método para agregar
-		@GetMapping("/nuevo")
-		public String agregar(Model m) {
-			m.addAttribute("Cliente", new Cliente());
-			return "form"; 
-		}
-		
-		// Método para editar
-		@GetMapping("/editar/{id}")
-		public String editar(@PathVariable String id, Model m) {
-			Optional<Cliente> p = servicio.BuscarClient(id);
-			m.addAttribute("Cliente", p);
-			return "form";  
-			
-		}
-													
-		// Método para grabar
-		@GetMapping("/salvar")
-		public String salvar(@Validated Cliente p, Model m) {
-			servicio.Grabar(p);
-			return "redirect:/listar";
-		}
-		
-		// Método para suprimir
-		@GetMapping("/eliminar/{id}")
-		public String eliminar(@PathVariable String id, Model m) {
-			servicio.Suprimir(id);
-			return "redirect:/listar";   
-		}
+	@GetMapping("/listar")
+	public String Listar(Model m) {
+		List<Cliente> lista = servicio.ListadoClientes();
+		m.addAttribute("clientes", lista);
+		return "listarClientes";
+	}
+
+	// Método para Buscar
+	@GetMapping("/ver/{id}")
+	public String ver(@PathVariable int id, Model m) {
+		Optional<Cliente> c = servicio.BuscarCliente(id);
+		m.addAttribute("cliente", c);
+		return "viewCliente";
+	}
+
+	// Método para agregar
+	@GetMapping("/nuevo")
+	public String agregar(Model m) {
+		m.addAttribute("cliente", new Cliente());
+		return "nuevoCliente";
+	}
+
+	// Método para editar
+	@GetMapping("/editar/{id}")
+	public String editar(@PathVariable int id, Model m) {
+		Optional<Cliente> c = servicio.BuscarCliente(id);
+		m.addAttribute("cliente", c);
+		return "editarCliente";
+
+	}
+
+	// Método para grabar
+	@GetMapping("/salvar")
+	public String salvar(@Validated Cliente c, Model m) {
+		servicio.Grabar(c);
+		return "redirect:/clientes/listar";
+	}
+
+	// Método para suprimir
+	@GetMapping("/eliminar/{id}")
+	public String eliminar(@PathVariable int id, Model m) {
+		servicio.Suprimir(id);
+		return "redirect:/clientes/listar";
+	}
 
 }

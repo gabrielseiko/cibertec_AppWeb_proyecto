@@ -1,36 +1,48 @@
-package org.cibertec.edu.pe.modelo;
+package org.cibertec.edu.pe.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cliente")
+@Table(name = "cliente")
 public class Cliente {
-	
+
 	@Id
-	private String IdCliente;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "IdCliente")
+	private int IdCliente;
+	@Column(name = "Nombre")
 	private String Nombre;
+	@Column(name = "Apellido")
 	private String Apellido;
+	@Column(name = "DNI")
 	private int DNI;
+	@Column(name = "Email")
 	private String Email;
-	
+	@Column(name = "Estado")
+	private boolean Estado;
+
 	public Cliente() {
 	}
 
-	public Cliente(String idCliente, String nombre, String apellido, int dNI, String email) {
+	public Cliente(int idCliente, String nombre, String apellido, int dNI, String email, boolean estado) {
 		IdCliente = idCliente;
 		Nombre = nombre;
 		Apellido = apellido;
 		DNI = dNI;
 		Email = email;
+		Estado = estado;
 	}
 
-	public String getIdCliente() {
+	public int getIdCliente() {
 		return IdCliente;
 	}
 
-	public void setIdCliente(String idCliente) {
+	public void setIdCliente(int idCliente) {
 		IdCliente = idCliente;
 	}
 
@@ -65,8 +77,13 @@ public class Cliente {
 	public void setEmail(String email) {
 		Email = email;
 	}
-	
-	
-	
-	
+
+	public boolean isEstado() {
+		return Estado;
+	}
+
+	public void setEstado(boolean estado) {
+		Estado = estado;
+	}
+
 }

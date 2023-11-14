@@ -3,40 +3,40 @@ package org.cibertec.edu.pe.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.cibertec.edu.pe.interfaceService.IClienteService;
-import org.cibertec.edu.pe.interfaces.ICliente;
-import org.cibertec.edu.pe.modelo.Cliente;
+import org.cibertec.edu.pe.model.Cliente;
+import org.cibertec.edu.pe.repository.IClienteRepository;
+import org.cibertec.edu.pe.repositoryService.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClienteService implements IClienteService {
-	
+
 	@Autowired
-	private ICliente data;
-	
+	private IClienteRepository data;
+
 	@Override
-	public void Suprimir(String id) {
-		data.deleteById(id);
+	public List<Cliente> ListadoClientes() {
+		return (List<Cliente>) data.findAll();
 	}
 
 	@Override
-	public List<Cliente> ListadoClient() {
-		return (List<Cliente>)data.findAll();
-	}
-
-	@Override
-	public Optional<Cliente> BuscarClient(String id) {
+	public Optional<Cliente> BuscarCliente(int id) {
 		return data.findById(id);
-
 	}
 
 	@Override
 	public int Grabar(Cliente objC) {
 		int rpta = 0;
-		Cliente p = data.save(objC);
-		if(!p.equals(null))
+		Cliente c = data.save(objC);
+		if (!c.equals(null))
 			rpta = 1;
 		return rpta;
+	}
+
+	@Override
+	public void Suprimir(int id) {
+		data.deleteById(id);
+
 	}
 }
