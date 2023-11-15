@@ -40,8 +40,7 @@
 				maxlength="30" />
 
 			<label class="mb-1">DNI</label>
-			<input type="text" th:field="*{DNI}" class="form-control mb-2 col-3" required pattern="[0-9]{8}"
-				oninvalid="this.setCustomValidity('El DNI es de 8 dígitos')" />
+			<input type="text" th:field="*{DNI}" class="form-control mb-2 col-3" required pattern="[0-9]{8}"/>
 
 			<label class="mb-1">EMAIL</label>
 			<input type="email" th:field="*{Email}" class="form-control mb-2 col-3" required />

@@ -49,8 +49,11 @@
 			<label class="mb-1">STOCK</label>
 			<input type="number" th:field="*{Stock}" class="form-control mb-2 col-3" required/>
 
-			<label class="mb-1">IMAGEN</label>
-			<input type="image" src="@{img/} + *{Imagen}" class="form-control mb-2 col-3" required />
+			<label class="mb-1">IMAGEN</label><br> 
+			<form th:action="@{/subirImagen}" method="post" enctype="multipart/form-data">
+				<input type="file" name="imagen" accept="image/*">
+			</form>
+			
 
 			<label class="mb-1">ESTADO</label>
 			<select th:field="*{Estado}" class="form-control mb-3 col-3">
