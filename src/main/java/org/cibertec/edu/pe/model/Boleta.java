@@ -26,15 +26,12 @@ public class Boleta {
 	private Date Fecha;
 	@ManyToOne
 	@JoinColumn(name = "IdCliente")
-	@Column(name = "IdCliente")
 	private Cliente cliente;
 	@ManyToOne
 	@JoinColumn(name = "IdTrabajador")
-	@Column(name = "IdTrabajador")
 	private Trabajador trabajador;
 	@ManyToOne
 	@JoinColumn(name = "IdProducto")
-	@Column(name = "IdProducto")
 	private Producto producto;
 	@Column(name = "Total")
 	private double Total;

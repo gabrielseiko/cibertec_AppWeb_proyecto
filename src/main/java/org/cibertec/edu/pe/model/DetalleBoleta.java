@@ -20,11 +20,9 @@ public class DetalleBoleta {
 	private int IdDetalle;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "IdProducto")
-	@Column(name = "IdProducto")
 	private Producto producto;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "IdBoleta")
-	@Column(name = "IdBoleta")
 	private Boleta boleta;
 	@Column(name = "Cantidad")
 	private int Cantidad;

@@ -24,7 +24,6 @@ public class Producto {
 	private String Descripcion;
 	@ManyToOne
 	@JoinColumn(name = "IdCategoria")
-	@Column(name = "IdCategoria")
 	private Categoria categoria;
 	@Column(name = "Talla")
 	private String Talla;

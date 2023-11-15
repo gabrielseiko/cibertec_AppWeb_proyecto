@@ -36,7 +36,12 @@ public class ClienteService implements IClienteService {
 
 	@Override
 	public void Suprimir(int id) {
-		data.deleteById(id);
-
+		for (Cliente c : ListadoClientes()) {
+			if (c.getIdCliente() == id) {
+				c.setEstado(false);
+				Grabar(c);
+				break;
+			}
+		}
 	}
 }

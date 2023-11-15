@@ -1,10 +1,11 @@
 package org.cibertec.edu.pe.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.cibertec.edu.pe.model.Categoria;
-import org.cibertec.edu.pe.model.Cliente;
+
 import org.cibertec.edu.pe.repository.ICategoriaRepository;
 import org.cibertec.edu.pe.repositoryService.ICategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,12 @@ public class CategoriaService implements ICategoriaService{
 
 	@Override
 	public void Suprimir(int id) {
-		Categoria cat = new Categoria();
-		if(cat.getIdCategoria() == id) {
-			cat.setEstado(false);
+		for (Categoria c : ListadoCategorias()) {
+			if (c.getIdCategoria() == id) {
+				c.setEstado(false);
+				Grabar(c);
+				break;
+			}
 		}
 	}
 

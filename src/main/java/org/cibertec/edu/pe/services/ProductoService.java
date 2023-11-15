@@ -36,7 +36,13 @@ public class ProductoService implements IProductoService {
 
 	@Override
 	public void Suprimir(int id) {
-		data.deleteById(id);
+		for (Producto p : ListadoProductos()) {
+			if (p.getIdProducto() == id) {
+				p.setEstado(false);
+				Grabar(p);
+				break;
+			}
+		}
 
 	}
 

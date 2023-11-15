@@ -3,7 +3,6 @@ package org.cibertec.edu.pe.services;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.cibertec.edu.pe.model.Trabajador;
 import org.cibertec.edu.pe.repository.ITrabajadorRepository;
 import org.cibertec.edu.pe.repositoryService.ITrabajadorService;
@@ -38,7 +37,13 @@ public class TrabajadorService implements ITrabajadorService {
 
 	@Override
 	public void Suprimir(int id) {
-		data.deleteById(id);
+		for (Trabajador t : ListadoTrabajadores()) {
+			if (t.getIdTrabajador() == id) {
+				t.setEstado(false);
+				Grabar(t);
+				break;
+			}
+		}
 
 	}
 

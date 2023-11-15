@@ -63,13 +63,19 @@ public class CarritoController {
 	@Autowired
 	private IDetalleBoletaRepository detalleRepository;
 
+	// Método para visualizar inicio
+		@GetMapping("/index") // localhost:9090/index
+		public String inicio(Model model) {
+			return "index";
+		}
+	
 	// Método para visualizar los productos a vender
-	@GetMapping("/index") // localhost:9090/index
+	@GetMapping("/venta") // localhost:9090/index
 	public String listado(Model model) {
 		List<Producto> lista = new ArrayList<>();
 		lista = productoRepository.findAll(); // Recuperar las filas de la tabla productos
 		model.addAttribute("productos", lista);
-		return "index";
+		return "venta";
 	}
 
 	// Método para agregar productos al carrito
