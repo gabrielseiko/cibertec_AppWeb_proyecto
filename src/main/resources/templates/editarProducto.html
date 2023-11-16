@@ -26,7 +26,7 @@
 		<div class="container mt-4">
 		<h2 class="mb-3">Editar Producto</h2>
 
-		<form th:action="@{/productos/salvar}" th:object="${producto}" onsubmit="confirmacion();">
+		<form th:action="@{/productos/salvar}" th:object="${producto}" onsubmit="confirmacion();" method="post" enctype="multipart/form-data">
 
 			<label class="mb-1">NOMBRE</label>
 			<input type="text" th:field="*{Nombre}" class="form-control mb-2 col-3" required />
@@ -35,7 +35,7 @@
 			<input type="text" th:field="*{Descripcion}" class="form-control mb-2 col-3" required/>
 
 			<label class="mb-1">CATEGORIA</label>
-			<select th:field="*{categoria}" class="form-comtrol col-md-6">
+			<select th:field="*{categoria}" class="form-control mb-3 col-3">
 				<option th:each="cat:${categorias}" th:value="${cat.IdCategoria}" th:text="${cat.Nombre}"></option>
 			</select>
 
@@ -48,8 +48,8 @@
 			<label class="mb-1">STOCK</label>
 			<input type="number" th:field="*{Stock}" class="form-control mb-2 col-3" required/>
 
-			<label class="mb-1">IMAGEN</label>
-			<input type="image" src="@{img/} + *{Imagen}" class="form-control mb-2 col-3" required />
+			<label class=" mb-1">IMAGEN</label><br> 
+			<input type="file"  id="imagen" name="file" accept="image/*"><br> 
 
 			<label class="mb-1">ESTADO</label>
 			<select th:field="*{Estado}" class="form-control mb-3 col-3">

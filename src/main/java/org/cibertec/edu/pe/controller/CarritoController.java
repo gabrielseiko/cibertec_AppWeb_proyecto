@@ -116,7 +116,7 @@ public class CarritoController {
 		model.addAttribute("envio", 0.0);
 		model.addAttribute("descuento", 0.0);
 		model.addAttribute("carrito", carrito);
-		return "redirect:/index";
+		return "redirect:/venta";
 	}
 
 	// Método para visualizar el carrito de compras

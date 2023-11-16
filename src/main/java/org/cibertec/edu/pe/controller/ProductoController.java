@@ -3,9 +3,15 @@ package org.cibertec.edu.pe.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.imageio.ImageIO;
 
 import org.cibertec.edu.pe.model.Categoria;
 import org.cibertec.edu.pe.model.Producto;
@@ -26,15 +32,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/productos")
-@SessionAttributes({"producto"})
+@SessionAttributes({ "producto" })
 public class ProductoController {
 
 	@Autowired
 	private IProductoService servicio;
-	
+
 	@Autowired
 	private ICategoriaService servicioCategoria;
-	
+
 	// Inicializacion del objeto Producto
 	@ModelAttribute("producto")
 	public Producto getProducto() {
@@ -44,7 +50,8 @@ public class ProductoController {
 	// Método para Listar
 	@GetMapping("/listar")
 	public String Listar(Model m) {
-		List<Producto> lista = servicio.ListadoProductos();
+		List<Producto> lista = new ArrayList<>();
+		lista = servicio.ListadoProductos();
 		m.addAttribute("productos", lista);
 		return "listarProductos";
 	}
@@ -52,6 +59,8 @@ public class ProductoController {
 	// Método para Buscar
 	@GetMapping("/ver/{id}")
 	public String ver(@PathVariable int id, Model m) {
+		List<Categoria> listaCat = servicioCategoria.ListadoCategorias();
+		m.addAttribute("categorias", listaCat);
 		Optional<Producto> p = servicio.BuscarProducto(id);
 		m.addAttribute("producto", p);
 		return "viewProducto";
@@ -69,18 +78,15 @@ public class ProductoController {
 	// Método para editar
 	@GetMapping("/editar/{id}")
 	public String editar(@PathVariable int id, Model m) {
+		List<Categoria> listaCat = servicioCategoria.ListadoCategorias();
 		Optional<Producto> p = servicio.BuscarProducto(id);
+		m.addAttribute("categorias", listaCat);
 		m.addAttribute("producto", p);
-		return "editarProducto"; 
+		return "editarProducto";
 
 	}
 
-	// Método para grabar
-	@GetMapping("/salvar")
-	public String salvar(@Validated Producto p, Model m) {
-		servicio.Grabar(p);
-		return "redirect:/productos/listar";
-	}
+	
 
 	// Método para suprimir
 	@GetMapping("/eliminar/{id}")
@@ -89,9 +95,18 @@ public class ProductoController {
 		return "redirect:/productos/listar";
 	}
 	
+	/*
+	// Método para grabar
+		@PostMapping("/salvar")
+		public String salvar(@Validated Producto p, Model m) {
+			servicio.Grabar(p);
+			return "redirect:/productos/listar";
+		}
+
 	// METODO PARA SUBIR IMAGEN
 	@PostMapping("/subirImagen")
-	public String subirImagen(@RequestParam("Imagen") MultipartFile file, @ModelAttribute("producto") Producto producto) {
+	public String subirImagen(@RequestParam("Imagen") MultipartFile file,
+			@ModelAttribute("producto") Producto producto) {
 		if (!file.isEmpty()) {
 			try {
 				// Obtén el nombre del archivo y genera una ruta donde guardar la imagen
@@ -116,4 +131,83 @@ public class ProductoController {
 
 		return "redirect:/productos/nuevo"; // Redirige al formulario de nuevo libro o a donde desees
 	}
+	*/
+	
+	//METODO GUADAR NUEVO LIBRO
+    @PostMapping("/salvar" )
+   public String salvar(Producto p, Model m, @RequestParam("file") MultipartFile imagen) {
+    	
+    	if(!imagen.isEmpty()) {
+    		Path directorioImagenes = Paths.get("src//main//resources//static/img");
+    		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+    		
+    		try {
+				byte[] bytesImg = imagen.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+				Files.write(rutaCompleta, bytesImg);
+				
+				p.setImagen(imagen.getOriginalFilename());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	
+    	servicio.Grabar(p);
+    	return "redirect:/productos/listar";
+	}
+	
+	
+	
+    /*
+	@PostMapping("/salvar")
+	public String salvar(@RequestParam("Imagen") MultipartFile file,
+			@Validated @ModelAttribute("producto") Producto p, Model m) {
+
+		if (!file.isEmpty()) {
+			try {
+				String ruta = "C://img/Productos";
+				String fileName = file.getOriginalFilename();
+				String filePath = Paths.get(ruta, fileName).toString();
+
+				byte[] bytes = file.getBytes();
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
+				
+				
+			/*	if (!file.isEmpty()) {
+					if (!this.validarExtension(file)) {
+						return "redirect:/productos/nuevo";
+					}
+					if (file.getSize() >= 15000000) {
+						return "redirect:/productos/nuevo";
+					}
+					stream.write(bytes);
+					stream.close();
+				}   
+				stream.write(bytes);
+				stream.close();
+				p.setImagen(fileName);
+				servicio.Grabar(p);
+
+				return "redirect:/productos/listar";
+			} catch (Exception e) {
+				m.addAttribute("error", e.getMessage());
+				return "error";
+			}
+			
+		}
+		return "redirect:/productos/listar";
+
+	}  */
+
+	public boolean validarExtension(MultipartFile archivo) {
+		try {
+			ImageIO.read(archivo.getInputStream()).toString();
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
+
 }
