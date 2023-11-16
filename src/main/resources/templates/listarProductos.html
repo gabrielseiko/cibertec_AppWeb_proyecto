@@ -68,7 +68,7 @@
 					<td th:text="${reg.Talla}"></td>
 					<td th:text="${reg.Precio}"></td>
 					<td th:text="${reg.Stock}"></td>
-					<td class="text-center"><img th:src="@{img/} + ${reg.Imagen}" width="75"></td>
+					<td class="text-center"><img th:src="@{img} +${reg.Imagen}" width="75"/></td>
 					<td th:text="${reg.Estado} ? 'Disponible' : ' No Disponible' "></td>
 					<td>
 						<a th:href="@{/productos/ver/{id}(id=${reg.IdProducto})}" class="btn btn-primary">Ver</a>

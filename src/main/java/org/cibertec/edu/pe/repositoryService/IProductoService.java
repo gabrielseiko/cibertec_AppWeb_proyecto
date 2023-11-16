@@ -7,11 +7,14 @@ import org.cibertec.edu.pe.model.Producto;
 
 
 
+
 public interface IProductoService {
 
 	public List<Producto> ListadoProductos();
 	public Optional<Producto> BuscarProducto(int id);
 	public int Grabar(Producto objP);
 	public void Suprimir(int id);
+	
+	
 	
 }

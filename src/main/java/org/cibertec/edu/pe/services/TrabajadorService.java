@@ -3,6 +3,9 @@ package org.cibertec.edu.pe.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
+import org.cibertec.edu.pe.model.Producto;
 import org.cibertec.edu.pe.model.Trabajador;
 import org.cibertec.edu.pe.repository.ITrabajadorRepository;
 import org.cibertec.edu.pe.repositoryService.ITrabajadorService;
@@ -47,4 +50,14 @@ public class TrabajadorService implements ITrabajadorService {
 
 	}
 
+	
+	@Transactional
+    public List<Trabajador> ListadoTrabajadoresDisponibles() throws Exception{
+        try {
+            List<Trabajador> entities = this.data.ListadoTrabajadoresDisponibles();
+            return entities;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }

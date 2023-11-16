@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +14,8 @@ import javax.imageio.ImageIO;
 
 import org.cibertec.edu.pe.model.Categoria;
 import org.cibertec.edu.pe.model.Producto;
+import org.cibertec.edu.pe.repository.ICategoriaRepository;
+import org.cibertec.edu.pe.repository.IProductoRepository;
 import org.cibertec.edu.pe.repositoryService.ICategoriaService;
 import org.cibertec.edu.pe.repositoryService.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class ProductoController {
 
 	@Autowired
 	private ICategoriaService servicioCategoria;
+	
+	@Autowired
+	private ICategoriaRepository categoriaRepository;
 
 	// Inicializacion del objeto Producto
 	@ModelAttribute("producto")
@@ -50,8 +54,7 @@ public class ProductoController {
 	// Método para Listar
 	@GetMapping("/listar")
 	public String Listar(Model m) {
-		List<Producto> lista = new ArrayList<>();
-		lista = servicio.ListadoProductos();
+		List<Producto> lista = servicio.ListadoProductos();
 		m.addAttribute("productos", lista);
 		return "listarProductos";
 	}
@@ -69,7 +72,7 @@ public class ProductoController {
 	// Método para agregar
 	@GetMapping("/nuevo")
 	public String agregar(Model m) {
-		List<Categoria> listaCat = servicioCategoria.ListadoCategorias();
+		List<Categoria> listaCat = categoriaRepository.ListadoCategoriasDisponibles();
 		m.addAttribute("categorias", listaCat);
 		m.addAttribute("producto", new Producto());
 		return "nuevoProducto";
@@ -95,45 +98,9 @@ public class ProductoController {
 		return "redirect:/productos/listar";
 	}
 	
-	/*
-	// Método para grabar
-		@PostMapping("/salvar")
-		public String salvar(@Validated Producto p, Model m) {
-			servicio.Grabar(p);
-			return "redirect:/productos/listar";
-		}
-
-	// METODO PARA SUBIR IMAGEN
-	@PostMapping("/subirImagen")
-	public String subirImagen(@RequestParam("Imagen") MultipartFile file,
-			@ModelAttribute("producto") Producto producto) {
-		if (!file.isEmpty()) {
-			try {
-				// Obtén el nombre del archivo y genera una ruta donde guardar la imagen
-				String fileName = file.getOriginalFilename();
-				String uploadDirectory = "src/main/resources/static/img"; // Ruta donde se guardarán las imágenes
-				String filePath = Paths.get(uploadDirectory, fileName).toString();
-
-				// Guarda la imagen en el directorio especificado
-				byte[] bytes = file.getBytes();
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
-				stream.write(bytes);
-				stream.close();
-
-				// Asigna la ruta de la imagen al libro
-				producto.setImagen("/img/" + fileName); // Ajusta la ruta según tu estructura de carpetas
-
-			} catch (Exception e) {
-				// Manejo de errores, si la carga de la imagen falla
-				e.printStackTrace();
-			}
-		}
-
-		return "redirect:/productos/nuevo"; // Redirige al formulario de nuevo libro o a donde desees
-	}
-	*/
 	
-	//METODO GUADAR NUEVO LIBRO
+	
+	//METODO GUADAR NUEVO PRODUCTO
     @PostMapping("/salvar" )
    public String salvar(Producto p, Model m, @RequestParam("file") MultipartFile imagen) {
     	
@@ -158,47 +125,7 @@ public class ProductoController {
 	}
 	
 	
-	
-    /*
-	@PostMapping("/salvar")
-	public String salvar(@RequestParam("Imagen") MultipartFile file,
-			@Validated @ModelAttribute("producto") Producto p, Model m) {
 
-		if (!file.isEmpty()) {
-			try {
-				String ruta = "C://img/Productos";
-				String fileName = file.getOriginalFilename();
-				String filePath = Paths.get(ruta, fileName).toString();
-
-				byte[] bytes = file.getBytes();
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
-				
-				
-			/*	if (!file.isEmpty()) {
-					if (!this.validarExtension(file)) {
-						return "redirect:/productos/nuevo";
-					}
-					if (file.getSize() >= 15000000) {
-						return "redirect:/productos/nuevo";
-					}
-					stream.write(bytes);
-					stream.close();
-				}   
-				stream.write(bytes);
-				stream.close();
-				p.setImagen(fileName);
-				servicio.Grabar(p);
-
-				return "redirect:/productos/listar";
-			} catch (Exception e) {
-				m.addAttribute("error", e.getMessage());
-				return "error";
-			}
-			
-		}
-		return "redirect:/productos/listar";
-
-	}  */
 
 	public boolean validarExtension(MultipartFile archivo) {
 		try {

@@ -3,6 +3,8 @@ package org.cibertec.edu.pe.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.cibertec.edu.pe.model.Producto;
 import org.cibertec.edu.pe.repository.IProductoRepository;
 import org.cibertec.edu.pe.repositoryService.IProductoService;
@@ -14,6 +16,9 @@ public class ProductoService implements IProductoService {
 
 	@Autowired
 	private IProductoRepository data;
+	
+	@Autowired
+    private IProductoRepository repositorio;
 
 	@Override
 	public List<Producto> ListadoProductos() {
@@ -45,5 +50,15 @@ public class ProductoService implements IProductoService {
 		}
 
 	}
+	
+	@Transactional
+    public List<Producto> ListadoProductosDisponibles() throws Exception{
+        try {
+            List<Producto> entities = this.data.ListadoProductosDisponibles();
+            return entities;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 
 }

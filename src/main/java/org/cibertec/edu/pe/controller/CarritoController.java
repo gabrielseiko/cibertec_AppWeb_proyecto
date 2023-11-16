@@ -70,10 +70,10 @@ public class CarritoController {
 		}
 	
 	// Método para visualizar los productos a vender
-	@GetMapping("/venta") // localhost:9090/index
+	@GetMapping("/venta") 
 	public String listado(Model model) {
 		List<Producto> lista = new ArrayList<>();
-		lista = productoRepository.findAll(); // Recuperar las filas de la tabla productos
+		lista = productoRepository.ListadoProductosDisponibles(); // Recuperar las filas de la tabla productos
 		model.addAttribute("productos", lista);
 		return "venta";
 	}

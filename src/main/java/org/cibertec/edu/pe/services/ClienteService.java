@@ -3,7 +3,10 @@ package org.cibertec.edu.pe.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.cibertec.edu.pe.model.Cliente;
+import org.cibertec.edu.pe.model.Producto;
 import org.cibertec.edu.pe.repository.IClienteRepository;
 import org.cibertec.edu.pe.repositoryService.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +47,14 @@ public class ClienteService implements IClienteService {
 			}
 		}
 	}
+	
+	@Transactional
+    public List<Cliente> ListadoClientesDisponibles() throws Exception{
+        try {
+            List<Cliente> entities = this.data.ListadoClientesDisponibles();
+            return entities;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }
