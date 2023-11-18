@@ -17,8 +17,7 @@ public class ProductoService implements IProductoService {
 	@Autowired
 	private IProductoRepository data;
 	
-	@Autowired
-    private IProductoRepository repositorio;
+
 
 	@Override
 	public List<Producto> ListadoProductos() {

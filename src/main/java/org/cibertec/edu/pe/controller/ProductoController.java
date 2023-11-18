@@ -1,8 +1,5 @@
 package org.cibertec.edu.pe.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,25 +12,21 @@ import javax.imageio.ImageIO;
 import org.cibertec.edu.pe.model.Categoria;
 import org.cibertec.edu.pe.model.Producto;
 import org.cibertec.edu.pe.repository.ICategoriaRepository;
-import org.cibertec.edu.pe.repository.IProductoRepository;
 import org.cibertec.edu.pe.repositoryService.ICategoriaService;
 import org.cibertec.edu.pe.repositoryService.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/productos")
-@SessionAttributes({ "producto" })
+@RequestMapping
 public class ProductoController {
 
 	@Autowired
@@ -52,7 +45,7 @@ public class ProductoController {
 	}
 
 	// Método para Listar
-	@GetMapping("/listar")
+	@GetMapping("/listarProductos")
 	public String Listar(Model m) {
 		List<Producto> lista = servicio.ListadoProductos();
 		m.addAttribute("productos", lista);
@@ -60,7 +53,7 @@ public class ProductoController {
 	}
 
 	// Método para Buscar
-	@GetMapping("/ver/{id}")
+	@GetMapping("/ver/producto/{id}")
 	public String ver(@PathVariable int id, Model m) {
 		List<Categoria> listaCat = servicioCategoria.ListadoCategorias();
 		m.addAttribute("categorias", listaCat);
@@ -70,7 +63,7 @@ public class ProductoController {
 	}
 
 	// Método para agregar
-	@GetMapping("/nuevo")
+	@GetMapping("/nuevoProducto")
 	public String agregar(Model m) {
 		List<Categoria> listaCat = categoriaRepository.ListadoCategoriasDisponibles();
 		m.addAttribute("categorias", listaCat);
@@ -79,7 +72,7 @@ public class ProductoController {
 	}
 
 	// Método para editar
-	@GetMapping("/editar/{id}")
+	@GetMapping("/editar/producto/{id}")
 	public String editar(@PathVariable int id, Model m) {
 		List<Categoria> listaCat = servicioCategoria.ListadoCategorias();
 		Optional<Producto> p = servicio.BuscarProducto(id);
@@ -92,16 +85,16 @@ public class ProductoController {
 	
 
 	// Método para suprimir
-	@GetMapping("/eliminar/{id}")
+	@GetMapping("/eliminar/producto/{id}")
 	public String eliminar(@PathVariable int id, Model m) {
 		servicio.Suprimir(id);
-		return "redirect:/productos/listar";
+		return "redirect:/listarProductos";
 	}
 	
 	
 	
 	//METODO GUADAR NUEVO PRODUCTO
-    @PostMapping("/salvar" )
+    @PostMapping("/salvarProducto" )
    public String salvar(Producto p, Model m, @RequestParam("file") MultipartFile imagen) {
     	
     	if(!imagen.isEmpty()) {
@@ -121,9 +114,8 @@ public class ProductoController {
     	}
     	
     	servicio.Grabar(p);
-    	return "redirect:/productos/listar";
+    	return "redirect:/listarProductos";
 	}
-	
 	
 
 
