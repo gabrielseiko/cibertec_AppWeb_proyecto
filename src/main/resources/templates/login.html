@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+
+    <!-- iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- fuente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+    <!-- estilos -->
+	<link th:href="@{/css/login.css}" rel="stylesheet" type="text/css">
+	
+
+</head>
+<body>
+    
+    <!-- header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+
+
+                <div class="header__logo">
+                    <a href="#">
+						
+                        <img th:src="@{/img/logo.png}" alt="Logotipo">
+                    </a>
+                </div>
+
+
+
+            </div>
+            
+        </div>
+    </header>
+    <!-- fin header -->
+
+    <!-- bloque  LOGIN -->
+    <section class="">
+        <div class="contenedor">
+            <div class="presentacion">
+                <div class="contenido-pres">
+                    <h2>¡Bienvenido a ECOCAMBIO!</h2>
+                    <p>Transformamos tu compromiso ambiental en un cambio real. ¡Únete a EcoCambio y haz la diferencia hoy!</p>
+                </div>
+            </div>
+            <div class="entrar">
+                <div class="form-box login">
+                    <form th:action="@{/login}" method = "post">
+                        <h2>Iniciar Sesión</h2>
+                        <div class="input-box">
+                            <!---------------------- CORREO ------------------- -->
+                            <input placeholder="Correo" type="email" id="correoUsuario" name="correoUsuario" required>
+                        </div>
+                        <div class="input-box">
+                            <!---------------------- CLAVE ------------------- -->
+                            <input placeholder="Clave" type="password" id="contrasenaUsuario" name="contrasenaUsuario" required>
+                        </div>
+                            <!---------------------- INGRESAR ------------------- -->
+                        <input class="btn" type="submit" value="Ingresar" name="tipo"></input>
+                        <div class="crear-cuenta">
+                            <p>¿Aún no tienes una cuenta? <a href="#" class="register-link"> 
+                                Registrate aquí</a></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-box register">
+                    <form th:action="@{/registro}" method="post">
+                        <h2>Registrate</h2>
+                        <div class="nombres">
+                            <div class="input-box-small">
+                                <!----------------------NOMBRE ------------------- -->
+                                <input placeholder="Nombre" type="text" id="nombreUsuario" name="nombreUsuario" required>
+                            </div>
+                            <div class="input-box-small">
+                                <!---------------------- APELLIDO ------------------- -->
+                                <input placeholder="Apellido" type="text" id="apellidoUsuario" name="apellidoUsuario" required>
+                            </div>
+                        </div>
+                        <div class="input-box">
+                            <!---------------------- DIRECCION ------------------- -->
+                            <input placeholder="Direccion" type="text" id="direccionUsuario" name="direccionUsuario" required>
+                        </div>
+                        <div class="input-box">
+                            <!---------------------- TELEFONO ------------------- -->
+                            <input placeholder="Telefono" type="text" id="telefonoUsuario" name="telefonoUsuario" required>
+                        </div>
+                        <div class="input-box">
+                            <!---------------------- CORREO ------------------- -->
+                            <input placeholder="Correo" type="email" id="correoUsuario" name="correoUsuario" required>
+                        </div>
+                        <div class="input-box">
+                            <!---------------------- CLAVE ------------------- -->
+                            <input placeholder="Clave" type="password" id="contrasenaUsuario" name="contrasenaUsuario" required>
+                        </div>
+                            <!---------------------- REGISTRARSE ------------------- -->
+                        <input class="btn" type="submit" value="Registrarse" name="tipo"></input>
+                        <div class="crear-cuenta">
+                            <p>Ya tienes una cuenta? <a href="#" class="login-link">
+                                Iniciar Sesión</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- fin bloque LOGIN -->
+
+
+
+    <!-- nuestro script -->
+	<script th:src="@{/js/login.js}"></script>
+
+</body>
+</html>
