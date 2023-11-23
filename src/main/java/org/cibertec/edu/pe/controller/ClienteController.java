@@ -36,11 +36,33 @@ public class ClienteController {
 		return "viewCliente";
 	}
 
-	// Método para agregar
+	// Método para agregar cliente desde mantenimiento
 	@GetMapping("/nuevo")
 	public String agregar(Model m) {
 		m.addAttribute("cliente", new Cliente());
+		return "agregarCliente";
+	}
+
+	// Método para grabar cliente desde mantenimiento
+	@GetMapping("/salvar")
+	public String salvar(@Validated Cliente c, Model m) {
+		servicio.Grabar(c);
+		return "redirect:/clientes/listar";
+	}
+
+	
+	// Método para agregar
+	@GetMapping("/nuevoCliente")
+	public String agregarCliente(Model m) {
+		m.addAttribute("cliente", new Cliente());
 		return "nuevoCliente";
+	}
+
+	// Método para grabar cliente 
+	@GetMapping("/grabar")
+	public String grabar(@Validated Cliente c, Model m) {
+		servicio.Grabar(c);
+		return "redirect:/listarClientes";
 	}
 
 	// Método para editar
@@ -52,12 +74,7 @@ public class ClienteController {
 
 	}
 
-	// Método para grabar
-	@GetMapping("/salvar")
-	public String salvar(@Validated Cliente c, Model m) {
-		servicio.Grabar(c);
-		return "redirect:/clientes/listar";
-	}
+	
 
 	// Método para suprimir
 	@GetMapping("/eliminar/{id}")

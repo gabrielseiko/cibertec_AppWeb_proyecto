@@ -16,7 +16,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" th:href="@{/listarClientes}"><i
+					<li class="nav-item"><a class="nav-link" th:href="@{/clientes/listar}"><i
 								class="bi bi-chevron-left"></i> Regresar a Clientes</a>
 					</li>
 				</ul>
@@ -26,7 +26,7 @@
 
 	<div class="container mt-4">
 		<h2 class="mb-3">Nuevo Cliente</h2>
-		<form th:action="@{/clientes/grabar}" th:object="${cliente}" onsubmit="confirmacion();">
+		<form th:action="@{/clientes/salvar}" th:object="${cliente}" onsubmit="confirmacion();">
 
 			<label class="mb-1">NOMBRE</label>
 			<input type="text" th:field="*{Nombre}" class="form-control mb-2 col-3" required minlength="3"

@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes({ "carrito", "total", "subtotal", "envio", "descuento", "cliente", "cli" })
+@RequestMapping
 public class CarritoController {
 	// Inicializacion del objeto carrito
 	@ModelAttribute("carrito")
@@ -85,6 +87,11 @@ public class CarritoController {
 		@GetMapping("/index") 
 		public String inicio(Model model) {
 			return "index";
+		}
+		
+		@GetMapping("/mantenimiento") 
+		public String mantenimiento(Model model) {
+			return "mantenimiento";
 		}
 	
 	// Método para visualizar los productos a vender
