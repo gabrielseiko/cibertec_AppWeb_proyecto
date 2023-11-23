@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import org.cibertec.edu.pe.model.Boleta;
+
+import org.cibertec.edu.pe.model.Cliente;
 import org.cibertec.edu.pe.model.DetalleBoleta;
 import org.cibertec.edu.pe.model.Producto;
 import org.cibertec.edu.pe.repository.IBoletaRepository;
+import org.cibertec.edu.pe.repository.IClienteRepository;
 import org.cibertec.edu.pe.repository.IDetalleBoletaRepository;
 import org.cibertec.edu.pe.repository.IProductoRepository;
+import org.cibertec.edu.pe.repositoryService.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({ "carrito", "total", "subtotal", "envio", "descuento" })
+@SessionAttributes({ "carrito", "total", "subtotal", "envio", "descuento", "cliente", "cli" })
 public class CarritoController {
 	// Inicializacion del objeto carrito
 	@ModelAttribute("carrito")
@@ -51,6 +56,11 @@ public class CarritoController {
 	public double getDescuento() {
 		return 0.0;
 	}
+	@ModelAttribute("cliente")
+	public String getCliente() {
+		return "";
+	}
+	
 
 	// Declaracion e Inicializacion de objetos para el control del carrito de
 	// compras
@@ -62,9 +72,17 @@ public class CarritoController {
 
 	@Autowired
 	private IDetalleBoletaRepository detalleRepository;
+	
+	@Autowired
+	private IClienteRepository clienteRepository;
+	
+	@Autowired
+	private IClienteService servicioCliente;
+	
+	
 
 	// Método para visualizar inicio
-		@GetMapping("/index") // localhost:9090/index
+		@GetMapping("/index") 
 		public String inicio(Model model) {
 			return "index";
 		}
@@ -73,7 +91,7 @@ public class CarritoController {
 	@GetMapping("/venta") 
 	public String listado(Model model) {
 		List<Producto> lista = new ArrayList<>();
-		lista = productoRepository.ListadoProductosDisponibles(); // Recuperar las filas de la tabla productos
+		lista = productoRepository.ListadoProductosDisponibles(); 
 		model.addAttribute("productos", lista);
 		return "venta";
 	}
@@ -118,6 +136,7 @@ public class CarritoController {
 		model.addAttribute("carrito", carrito);
 		return "redirect:/venta";
 	}
+	
 
 	// Método para visualizar el carrito de compras
 	@GetMapping("/carrito")
@@ -155,13 +174,16 @@ public class CarritoController {
 		// Redirigir a la página del carrito
 		return "redirect:/carrito";
 	}
+	
 
 	// Método para registrar venta
 	@PostMapping("/pagar")
 	public String procesarPago(Model model) {
 
 		Boleta nuevaVenta = new Boleta();
-		nuevaVenta.setFecha(new Date()); //
+		nuevaVenta.setFecha(new Date());
+		Cliente cliente = (Cliente)model.getAttribute("cliente");
+		nuevaVenta.setCliente(cliente);
 
 		List<DetalleBoleta> carrito = (List<DetalleBoleta>) model.getAttribute("carrito");
 		double total = (double) model.getAttribute("total");
@@ -199,14 +221,8 @@ public class CarritoController {
 		envio = (3.5 / 100) * subtotal;
 
 		// Calculando descuento
-		if (subtotal >= 1500 && subtotal <= 2500)
-			descuento = (3.7 / 100) * subtotal;
-		else if (subtotal >= 2501 && subtotal <= 3500)
-			descuento = (4.8 / 100) * subtotal;
-		else if (subtotal >= 3501 && subtotal <= 4500)
-			descuento = (5.7 / 100) * subtotal;
-		else if (subtotal > 4500)
-			descuento = (6.8 / 100) * subtotal;
+		if (subtotal > 100)
+			descuento = (10 / 100) * subtotal;
 		else
 			descuento = 0.0;
 
@@ -220,6 +236,27 @@ public class CarritoController {
 		model.addAttribute("descuento", descuento);
 		model.addAttribute("carrito", carrito);
 
+		return "redirect:/carrito";
+	}
+
+	// Método para Listar
+	@GetMapping("/listarClientes")
+	public String ListarClientes(Model m) {
+		List<Cliente> lista = clienteRepository.ListadoClientesDisponibles();
+		m.addAttribute("clientes", lista);
+		return "seleccionarCliente";
+	}
+
+	// Método para seleccionar cliente
+	@GetMapping("/seleccionar/{id}")
+	public String seleccionarCliente(Model model, @PathVariable int id) {
+		List<Cliente> listaCli = servicioCliente.ListadoClientes();
+		model.addAttribute("clientes", listaCli);
+		Cliente c = clienteRepository.findById(id).orElse(null);
+		String cli = getCliente();
+		cli = c.getNombre();
+		model.addAttribute("cliente", c);
+		model.addAttribute("cli", cli);
 		return "redirect:/carrito";
 	}
 

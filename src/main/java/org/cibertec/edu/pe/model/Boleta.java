@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
+
 @Entity
 @Table(name = "boleta")
 public class Boleta {
@@ -27,30 +29,20 @@ public class Boleta {
 	@ManyToOne
 	@JoinColumn(name = "IdCliente")
 	private Cliente cliente;
-	@ManyToOne
-	@JoinColumn(name = "IdTrabajador")
-	private Trabajador trabajador;
-	@ManyToOne
-	@JoinColumn(name = "IdProducto")
-	private Producto producto;
 	@Column(name = "Total")
 	private double Total;
-	@Column(name = "Estado")
-	private boolean Estado;
+	
 
 	public Boleta() {
 
 	}
 
-	public Boleta(int idBoleta, Date fecha, Cliente cliente, Trabajador trabajador, Producto producto, double total,
-			boolean estado) {
+	public Boleta(int idBoleta, Date fecha, Cliente cliente, double total) {
 		IdBoleta = idBoleta;
 		Fecha = fecha;
 		this.cliente = cliente;
-		this.trabajador = trabajador;
-		this.producto = producto;
 		Total = total;
-		Estado = estado;
+	
 	}
 
 	public int getIdBoleta() {
@@ -77,22 +69,6 @@ public class Boleta {
 		this.cliente = cliente;
 	}
 
-	public Trabajador getTrabajador() {
-		return trabajador;
-	}
-
-	public void setTrabajador(Trabajador trabajador) {
-		this.trabajador = trabajador;
-	}
-
-	public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
-
 	public double getTotal() {
 		return Total;
 	}
@@ -101,12 +77,5 @@ public class Boleta {
 		Total = total;
 	}
 
-	public boolean isEstado() {
-		return Estado;
-	}
-
-	public void setEstado(boolean estado) {
-		Estado = estado;
-	}
 
 }

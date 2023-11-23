@@ -92,6 +92,7 @@
 						</tr>
 						<tr>
 							<td><input type="text" class="form-control fw-bold" th:value="${'S/ ' + envio}"></td>
+			
 						</tr>
 						<tr>
 							<td>Descuento:</td>
@@ -105,8 +106,25 @@
 						<tr>
 							<td><input type="text" class="form-control fw-bold" th:value="${'S/ ' + total}"></td>
 						</tr>
+						<tr>
+							<td>Cliente:</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="form-control fw-bold" th:value="${cliente}" hidden>
+								<input type="text" class="form-control fw-bold" th:value="${cli}" >
+							</td>
+							
+						</tr>
 					</tbody>
 					<tfoot class="table-secondary">
+						<tr>
+							<td class="text-center px-3">
+								<form th:action="@{/listarClientes}" method="get">
+									<button type="submit" class="btn btn-danger w-100">Seleccionar Cliente</button>
+								</form>
+							</td>
+						</tr>
 						<tr>
 							<td class="text-center px-3">
 								<form th:action="@{/actualizarCarrito}" method="post">
