@@ -13,4 +13,6 @@ public interface IProductoRepository extends JpaRepository<Producto, Integer>{
 	@Query(value = "SELECT * FROM producto  WHERE estado = '1' ", nativeQuery = true)
     List<Producto> ListadoProductosDisponibles();
 	
+	@Query(value = "SELECT * FROM producto WHERE nombre = :Nombre AND id_categoria = :NombreCate AND estado = '1'", nativeQuery = true)
+	List<Producto> findByFiltrado(String Nombre, String NombreCate);
 }

@@ -15,6 +15,7 @@ public interface IProductoService {
 	public int Grabar(Producto objP);
 	public void Suprimir(int id);
 	
+	List<Producto> buscarPorNombreYCategoria(String Nombre, String NombreCate);
 	
 	
 }

@@ -15,17 +15,21 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "IdCategoria")
 	private int IdCategoria;
+	
 	@Column(name = "Nombre")
-	private String Nombre;
+	private String NombreCate;
+	
 	@Column(name = "Estado")
 	private boolean Estado;
 
 	public Categoria() {
+	
 	}
 
-	public Categoria(int idCategoria, String nombre, boolean estado) {
+	public Categoria(int idCategoria, String nombreCate, boolean estado) {
+		
 		IdCategoria = idCategoria;
-		Nombre = nombre;
+		NombreCate = nombreCate;
 		Estado = estado;
 	}
 
@@ -37,12 +41,12 @@ public class Categoria {
 		IdCategoria = idCategoria;
 	}
 
-	public String getNombre() {
-		return Nombre;
+	public String getNombreCate() {
+		return NombreCate;
 	}
 
-	public void setNombre(String nombre) {
-		Nombre = nombre;
+	public void setNombreCate(String nombreCate) {
+		NombreCate = nombreCate;
 	}
 
 	public boolean isEstado() {
@@ -52,5 +56,7 @@ public class Categoria {
 	public void setEstado(boolean estado) {
 		Estado = estado;
 	}
+
+	
 
 }

@@ -24,15 +24,14 @@
 <body>
     
     <!-- header -->
-    <header class="header">
-        <div class="container">
+    <header class="header" style="background-color: black;">
+        <div class="container black">
             <div class="header__inner">
 
 
                 <div class="header__logo">
-                    <a href="#">
-						
-                        <img th:src="@{/img/logo.png}" alt="Logotipo">
+                    <a href="/index" style="color: aliceblue;">
+						HAPPY
                     </a>
                 </div>
 
@@ -48,11 +47,10 @@
     <section class="">
         <div class="contenedor">
             <div class="presentacion">
-                <div class="contenido-pres">
-                    <h2>¡Bienvenido a ECOCAMBIO!</h2>
-                    <p>Transformamos tu compromiso ambiental en un cambio real. ¡Únete a EcoCambio y haz la diferencia hoy!</p>
-                </div>
-            </div>
+				
+			</div>
+				<img src="/img/login.jpg" alt="Bienvenido a ECOCAMBIO" style="width: 100%; height: 100%;" />
+	
             <div class="entrar">
                 <div class="form-box login">
                     <form th:action="@{/login}" method = "post">

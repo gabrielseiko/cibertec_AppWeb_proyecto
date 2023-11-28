@@ -49,10 +49,11 @@
 			<label class="mb-1">STOCK</label>
 			<input type="number" th:field="*{Stock}" class="form-control mb-2 col-3" readonly disabled/>
 
+<!--
 			<label class=" mb-1">IMAGEN</label><br> 
 			<img th:src="@{'/img/'+ ${producto.Imagen}}" width="75px">	
 			<input type="text" th:field="*{Imagen}" class="form-control mb-2 col-3" readonly disabled />
-
+-->
 			<label class="mb-1">ESTADO</label>
 			<select th:field="*{Estado}" class="form-control mb-3 col-3" readonly disabled>
 				<option th:value="'true'">Disponible</option>

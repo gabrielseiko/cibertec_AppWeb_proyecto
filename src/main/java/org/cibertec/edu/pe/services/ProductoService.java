@@ -60,4 +60,9 @@ public class ProductoService implements IProductoService {
         }
     }
 
+	@Override
+	public List<Producto> buscarPorNombreYCategoria(String Nombre, String NombreCate) {
+		 return data.findByFiltrado(Nombre, NombreCate);
+	}
+
 }

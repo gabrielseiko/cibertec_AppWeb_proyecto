@@ -1,7 +1,7 @@
 
 :root {
     --color1: #ffffff; /* Blanco */
-    --color-ofert: #00cc66; /* Verde */
+    --color-ofert: rgb(255, 128, 128); /* Verde */
     --color-2: #312f32;
     --color-text: #333;
 }
@@ -12,8 +12,10 @@
     box-sizing: border-box;
 }
 
+
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Ephesis', cursive;
+	font-family: 'Sometype Mono', monospace;
     background-color: var(--color1);
     color: var(--color-text);
 }
@@ -158,8 +160,8 @@ header .container {
     left: 50%;
     top: 53%;
     transform: translate(-50%, -50%);
-    width: 75%;
-    height: 80%;
+    width: 68%;
+    height: 85%;
     margin-top: 20px;
     background: var(--color1);
     border-radius: 20px;
@@ -170,16 +172,16 @@ header .container {
     position: absolute;
     top: 0;
     left: 0;
-    width: 58%;
+    width: 100%;
     height: 100%;
     color: #fff;
-    background: var(--color-ofert);
     padding: 80px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
 }
+
 
 .contenido-pres h2 {
     font-size: 40px;
@@ -211,7 +213,7 @@ header .container {
     width: calc(100% - 58%);
     height: 100%;
     color: #fff;
-    background: rgb(0, 128, 64);
+    background: rgb(0, 0, 0);
 }
 
 .entrar .form-box {
@@ -337,7 +339,7 @@ header .container {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background: rgb(0, 128, 64);
+    background: rgb(0, 0, 0);
     font-size: 16px;
     color: #fff;
     text-align: center;
@@ -356,7 +358,7 @@ header .container {
 }
 
 .crear-cuenta p a {
-    color: #fff;
+    color: #f0ee3d;
     font-weight: 1000px;
     text-decoration: none;
 }

@@ -21,6 +21,14 @@ public class CategoriaController {
 	@Autowired
 	private ICategoriaService servicio;
 
+	// Método para Listar en Venta
+	@GetMapping("/venta")
+	public String ListarVenta(Model m) {
+		List<Categoria> lista = servicio.ListadoCategorias();
+		m.addAttribute("categorias", lista);
+		return "venta";
+	}
+	
 	// Método para Listar
 	@GetMapping("/listar")
 	public String Listar(Model m) {

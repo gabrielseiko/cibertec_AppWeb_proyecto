@@ -6,15 +6,18 @@ import java.util.List;
 
 
 import org.cibertec.edu.pe.model.Boleta;
-
+import org.cibertec.edu.pe.model.Categoria;
 import org.cibertec.edu.pe.model.Cliente;
 import org.cibertec.edu.pe.model.DetalleBoleta;
 import org.cibertec.edu.pe.model.Producto;
 import org.cibertec.edu.pe.repository.IBoletaRepository;
+import org.cibertec.edu.pe.repository.ICategoriaRepository;
 import org.cibertec.edu.pe.repository.IClienteRepository;
 import org.cibertec.edu.pe.repository.IDetalleBoletaRepository;
 import org.cibertec.edu.pe.repository.IProductoRepository;
+import org.cibertec.edu.pe.repositoryService.ICategoriaService;
 import org.cibertec.edu.pe.repositoryService.IClienteService;
+import org.cibertec.edu.pe.repositoryService.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
@@ -81,13 +85,23 @@ public class CarritoController {
 	@Autowired
 	private IClienteService servicioCliente;
 	
-	
+	@Autowired
+	private IProductoService serviceProducto;
 
-	// Método para visualizar inicio
-		@GetMapping("/index") 
-		public String inicio(Model model) {
-			return "index";
-		}
+	@Autowired
+	private ICategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private ICategoriaService serviceCategoria;
+	
+	//VISUALIZAR LOS PRODUCTOS EN EL INDEX
+	@GetMapping("/index")
+	public String listado(Model model) {
+		List<Producto> lista = new ArrayList<>();
+		lista = productoRepository.findAll();
+		model.addAttribute("producto", lista);
+		return "index";
+	}
 		
 		@GetMapping("/mantenimiento") 
 		public String mantenimiento(Model model) {
@@ -96,9 +110,14 @@ public class CarritoController {
 	
 	// Método para visualizar los productos a vender
 	@GetMapping("/venta") 
-	public String listado(Model model) {
+	public String listadoVenta(Model model) {
+		// Agrega la lista de categorías al modelo
+		List<Categoria> lista2 = new ArrayList<>();
+		lista2 = serviceCategoria.ListadoCategorias(); 
+		model.addAttribute("categorias", lista2);
+		
 		List<Producto> lista = new ArrayList<>();
-		lista = productoRepository.ListadoProductosDisponibles(); 
+		lista = productoRepository.findAll(); 
 		model.addAttribute("productos", lista);
 		return "venta";
 	}
@@ -266,5 +285,18 @@ public class CarritoController {
 		model.addAttribute("cli", cli);
 		return "redirect:/carrito";
 	}
+	
+
+	//METODO PARA BUSCAR PRODUCTO POR CATEGORIA
+	@GetMapping("/buscarProducto")
+	public String buscarProducto(@RequestParam("Nombre") String Nombre, @RequestParam("NombreCate") String NombreCate, Model model) {
+	    List<Producto> productos = serviceProducto.buscarPorNombreYCategoria(Nombre, NombreCate);
+	    List<Categoria> lista2 = serviceCategoria.ListadoCategorias();  // Agrega esta línea para obtener la lista de categorías
+	    model.addAttribute("productos", productos);
+	    model.addAttribute("categorias", lista2);  // Agrega las categorías al modelo
+	    return "venta";
+	}
+
+	
 
 }
