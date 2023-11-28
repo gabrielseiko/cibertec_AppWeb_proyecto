@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Ephesis&family=Sometype+Mono:ital@0;1&display=swap');
+
+body{
+	font-family: 'Ephesis', cursive;
+	font-family: 'Sometype Mono', monospace;
+}
+
+/*Estilos de los botones*/
+/*Boton Ver + */
+.btn-ver{
+	width: 90%;
+	background-color: black;
+	color:white;
+}
+/*Boton Agregar*/
+.btn-agregar{
+	width: 90%;
+	background-color: #f0ee3d;
+}
