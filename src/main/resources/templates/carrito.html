@@ -65,13 +65,6 @@
 							<td><input type="text" class="form-control fw-bold" th:value="${'S/ ' + subtotal}"></td>
 						</tr>
 						<tr>
-							<td>Precio Envío:</td>
-						</tr>
-						<tr>
-							<td><input type="text" class="form-control fw-bold" th:value="${'S/ ' + envio}"></td>
-			
-						</tr>
-						<tr>
 							<td>Descuento:</td>
 						</tr>
 						<tr>
@@ -97,7 +90,7 @@
 					<tfoot class="table-secondary">
 						<tr>
 							<td class="text-center px-3">
-								<form th:action="@{/listarClientes}" method="get">
+								<form th:action="@{/listarClientesCarrito}" method="get">
 									<button type="submit" class="btn btn-danger w-100">Seleccionar Cliente</button>
 								</form>
 							</td>
@@ -105,7 +98,7 @@
 						<tr>
 							<td class="text-center px-3">
 								<form th:action="@{/actualizarCarrito}" method="post">
-									<button type="submit" class="btn btn-danger w-100">Calcular Envio y
+									<button type="submit" class="btn btn-danger w-100">Calcular
 										Descuento</button>
 								</form>
 							</td>

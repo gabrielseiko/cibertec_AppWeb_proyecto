@@ -1,0 +1,128 @@
+package org.cibertec.edu.pe.util;
+
+import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.cibertec.edu.pe.model.Cliente;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.view.document.AbstractPdfView;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+
+@Component("PDFcliente")
+public class ListarClientesPDF extends AbstractPdfView {
+    @Override
+    protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        @SuppressWarnings("unchecked")
+        List<Cliente> listadoClientes = (List<Cliente>) model.get("clientes");
+
+        /* FUENTES, TAMAÑOS Y COLORES PARA CADA SECCIÓN */
+        Font fuenteTitulo = FontFactory.getFont("Helvetica", 18, Color.WHITE);
+        Font fuenteCabecera = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+        Font fuenteData = FontFactory.getFont(FontFactory.COURIER, 10, Color.BLACK);
+
+        document.setPageSize(PageSize.LETTER.rotate());
+        document.setMargins(-20, -20, 20, 20);
+        document.open();
+
+        /* TÍTULO DEL PDF */
+        PdfPTable tablaTitulo = new PdfPTable(1);
+
+        /* CELDAS */
+        PdfPCell celda = null;
+
+        celda = new PdfPCell(new Phrase("LISTADO DE CLIENTES", fuenteTitulo));
+        celda.setBorder(0);
+        celda.setBackgroundColor(new Color(255, 165, 0)); // Cambié el color a naranja
+        celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+        celda.setVerticalAlignment(Element.ALIGN_CENTER);
+        celda.setPadding(15);
+
+        tablaTitulo.addCell(celda);
+        tablaTitulo.setSpacingAfter(30);
+
+        /* TABLA PARA MOSTRAR EL LISTADO */
+        PdfPTable tablaClientes = new PdfPTable(5); // Ajusté la cantidad de columnas a mostrar
+        tablaClientes.setWidths(new float[] { 0.2f, 1.0f, 1.0f, 0.5f, 0.5f }); // Ajusté los tamaños de las columnas
+
+        celda = new PdfPCell(
+                new Phrase("ID", new Font(fuenteCabecera.getFamily(), fuenteCabecera.getSize(), 0, Color.WHITE)));
+        celda.setBackgroundColor(new Color(255, 165, 0));
+        celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+        celda.setVerticalAlignment(Element.ALIGN_CENTER);
+        celda.setPadding(10);
+        tablaClientes.addCell(celda);
+
+        celda = new PdfPCell(new Phrase("Nombre", new Font(fuenteCabecera.getFamily(), fuenteCabecera.getSize(), 0,
+                Color.WHITE)));
+        celda.setBackgroundColor(new Color(255, 165, 0));
+        celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+        celda.setVerticalAlignment(Element.ALIGN_CENTER);
+        celda.setPadding(10);
+        tablaClientes.addCell(celda);
+
+        celda = new PdfPCell(new Phrase("Apellido", new Font(fuenteCabecera.getFamily(), fuenteCabecera.getSize(), 0,
+                Color.WHITE)));
+        celda.setBackgroundColor(new Color(255, 165, 0));
+        celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+        celda.setVerticalAlignment(Element.ALIGN_CENTER);
+        celda.setPadding(10);
+        tablaClientes.addCell(celda);
+
+        celda = new PdfPCell(new Phrase("DNI", new Font(fuenteCabecera.getFamily(), fuenteCabecera.getSize(), 0,
+                Color.WHITE)));
+        celda.setBackgroundColor(new Color(255, 165, 0));
+        celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+        celda.setVerticalAlignment(Element.ALIGN_CENTER);
+        celda.setPadding(10);
+        tablaClientes.addCell(celda);
+
+        celda = new PdfPCell(new Phrase("Email", new Font(fuenteCabecera.getFamily(), fuenteCabecera.getSize(), 0,
+                Color.WHITE)));
+        celda.setBackgroundColor(new Color(255, 165, 0));
+        celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+        celda.setVerticalAlignment(Element.ALIGN_CENTER);
+        celda.setPadding(10);
+        tablaClientes.addCell(celda);
+
+        /* BUCLE, PARA MOSTRAR LOS DATOS */
+        for (Cliente cliente : listadoClientes) {
+            celda = new PdfPCell(new Phrase(Integer.toString(cliente.getIdCliente()), fuenteData));
+            celda.setPadding(5);
+            tablaClientes.addCell(celda);
+
+            celda = new PdfPCell(new Phrase(cliente.getNombre(), fuenteData));
+            celda.setPadding(5);
+            tablaClientes.addCell(celda);
+
+            celda = new PdfPCell(new Phrase(cliente.getApellido(), fuenteData));
+            celda.setPadding(5);
+            tablaClientes.addCell(celda);
+
+            celda = new PdfPCell(new Phrase(Integer.toString(cliente.getDNI()), fuenteData));
+            celda.setPadding(5);
+            tablaClientes.addCell(celda);
+
+            celda = new PdfPCell(new Phrase(cliente.getEmail(), fuenteData));
+            celda.setPadding(5);
+            tablaClientes.addCell(celda);
+        }
+
+        document.add(tablaTitulo);
+        document.add(tablaClientes);
+    }
+}

@@ -127,5 +127,10 @@ public class Producto {
 		Estado = estado;
 	}
 	
-	
+	//METODO PARA REDUCIR STOCK DEL PRODUCTO CUANDO SE REALICE UNA VENTA
+	public void reducirStock(int cantidad) {
+        if (cantidad > 0 && this.Stock >= cantidad) {
+            this.Stock -= cantidad;
+        }
+	}
 }

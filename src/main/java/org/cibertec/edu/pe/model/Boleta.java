@@ -29,53 +29,52 @@ public class Boleta {
 	@ManyToOne
 	@JoinColumn(name = "IdCliente")
 	private Cliente cliente;
+	@Column(name="Descuento")
+	private Double Descuento;
 	@Column(name = "Total")
 	private double Total;
 	
-
 	public Boleta() {
-
+		
 	}
-
-	public Boleta(int idBoleta, Date fecha, Cliente cliente, double total) {
+	public Boleta(int idBoleta, Date fecha, Cliente cliente, Double descuento, double total) {
+	
 		IdBoleta = idBoleta;
 		Fecha = fecha;
 		this.cliente = cliente;
+		Descuento = descuento;
 		Total = total;
-	
 	}
-
 	public int getIdBoleta() {
 		return IdBoleta;
 	}
-
 	public void setIdBoleta(int idBoleta) {
 		IdBoleta = idBoleta;
 	}
-
 	public Date getFecha() {
 		return Fecha;
 	}
-
 	public void setFecha(Date fecha) {
 		Fecha = fecha;
 	}
-
 	public Cliente getCliente() {
 		return cliente;
 	}
-
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
+	public Double getDescuento() {
+		return Descuento;
+	}
+	public void setDescuento(Double descuento) {
+		Descuento = descuento;
+	}
 	public double getTotal() {
 		return Total;
 	}
-
 	public void setTotal(double total) {
 		Total = total;
 	}
-
+	
 
 }

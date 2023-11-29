@@ -54,4 +54,19 @@ public class BoletaController {
 		m.addAttribute("detalle", lista);
 		return "viewDetalle";
 	}
+	
+	// NUEVO MÉTODO PARA VER BOLETA CON DETALLE
+		@GetMapping("/ver/boletaDetalle/{id}")
+		public String verConDetalle(@PathVariable int id, Model m) {
+		    Optional<Boleta> boletaOptional = servicioBoleta.BuscarBol(id);
+		    if (boletaOptional.isPresent()) {
+		        Boleta boleta = boletaOptional.get();
+		        List<DetalleBoleta> detalles = servicioBoleta.obtenerDetallesPorBoleta(boleta);
+		        m.addAttribute("boleta", boleta);
+		        m.addAttribute("detalles", detalles);
+		        return "viewDetalle";
+		    } else {
+		        return "redirect:/listarVentas";
+		    }
+		}
 }

@@ -1,14 +1,13 @@
-//NAV INDEX
 document.addEventListener("DOMContentLoaded", function () {
-    // Encuentra el div con la clase "show-navbar".
-    var navbarContainer = document.querySelector(".show-navbar-index");
+    // Encuentra el div con la clase "show-navbar-index".
+    var navbarIndexContainer = document.querySelector(".show-navbar-index");
 
-    // Verifica si el div con la clase "show-navbar" existe en la página actual.
-    if (navbarContainer) {
-        // Crea y agrega la barra de navegación solo en las páginas que contienen el div con la clase "show-navbar".
-        var navbar = document.createElement("nav");
-        navbar.className = "navbar navbar-expand-lg navbar-dark bg-dark";
-        navbar.innerHTML = `
+    // Verifica si el div con la clase "show-navbar-index" existe en la página actual.
+    if (navbarIndexContainer) {
+        // Código para la barra de navegación en la página de inicio
+        var navbarIndex = document.createElement("nav");
+        navbarIndex.className = "navbar navbar-expand-lg navbar-dark bg-dark";
+        navbarIndex.innerHTML = `
         <div class="container-fluid">
             <!-- Nombre de la página en la parte izquierda -->
             <a class="navbar-brand ms-5" href="/index">HAPPY</a>
@@ -42,22 +41,17 @@ document.addEventListener("DOMContentLoaded", function () {
             </ul>
         </div>
         `;
-        navbarContainer.appendChild(navbar);
+        navbarIndexContainer.appendChild(navbarIndex);
     }
-});
 
+    
 
-
-
-
-// Footer
-document.addEventListener("DOMContentLoaded", function () {
     // Encuentra el div con la clase "show-footer".
     var footerContainer = document.querySelector(".show-footer");
 
     // Verifica si el div con la clase "show-footer" existe en la página actual.
     if (footerContainer) {
-        // Crea y agrega el footer solo en las páginas que contienen el div con la clase "show-footer".
+        // Código para el pie de página
         var footer = document.createElement("footer");
         footer.className = "bg-dark text-white text-center py-3";
         footer.innerHTML = `
@@ -72,6 +66,77 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+
+//NAV DE MANTENIMIENTO
+document.addEventListener("DOMContentLoaded", function () {
+    // Encuentra el div con la clase "show-navbar-mantenimiento".
+    var navbarContainer = document.querySelector(".show-navbar-mantenimiento");
+
+    // Verifica si el div con la clase "show-navbar" existe en la página actual.
+    if (navbarContainer) {
+        // Crea y agrega la barra de navegación solo en las páginas que contienen el div con la clase "show-navbar".
+        var navbarMan = document.createElement("nav");
+        navbarMan.className = "navbar navbar-dark bg-dark";
+        navbarMan.innerHTML = `
+        	  
+        <div class="container">
+            <a class="navbar-brand" href="/mantenimiento">Mantenimiento
+                <i class="bi bi-gear"></i>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Mantenimiento</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="d-flex flex-column justify-content-between" style="height: 100%;">
+                        <ul class="navbar-nav pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="/listarProductos">
+                                    <i class="bi bi-journal-richtext"></i>
+                                    Productos
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"  href="/categorias/listar">
+                                    <i class="bi bi-tags-fill"></i>
+                                    Categorias
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/trabajadores/listar">
+                                    <i class="bi bi-person-workspace"></i>
+                                    Trabajador
+                                </a>
+                            </li>
+                             <li class="nav-item">
+                                <a class="nav-link" href="/clientes/listar">
+                                    <i class="bi bi-person-workspace"></i>
+                                    Cliente
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/listarVentas">
+                                    <i class="bi bi-card-checklist"></i>
+                                    Boletas
+                                </a>
+                            </li>
+                        </ul>
+                        <a class="nav-link" href="/logout">
+                            <i class="bi bi-box-arrow-right"></i>
+                            Cerrar Sesión
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        navbarContainer.appendChild(navbarMan);
+    }
+});
 
 
 //ANIMACION DEL BANNER DE DESCUENTO

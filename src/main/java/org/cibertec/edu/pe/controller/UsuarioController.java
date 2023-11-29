@@ -26,6 +26,7 @@ public class UsuarioController {
     public String registroPage() {
         return "login"; // Página HTML para el formulario de registro
     }
+    
 
     @PostMapping("/registro")
     public String registrarUsuario(Usuario usuario) {
@@ -45,7 +46,7 @@ public class UsuarioController {
         if (usuario != null) {
             // Autenticación exitosa
             model.addAttribute("usuario", usuario); // Agregar el usuario a la sesión
-            return "redirect:/index"; // Redirige a la página principal del usuario autenticado
+            return "redirect:/mantenimiento"; // Redirige a la página principal del usuario autenticado
         } else {
             // Autenticación fallida
             return "redirect:/login?error=true"; // Redirige a la página de inicio de sesión con un mensaje de error
@@ -75,7 +76,7 @@ public class UsuarioController {
         session.removeAttribute("usuario");
         // Puedes agregar lógica adicional de cierre de sesión si es necesario
 
-        return "redirect:/login"; // Redirige a la página de inicio de sesión
+        return "redirect:/index"; // Redirige a la página de inicio de sesión
     }
 
 }

@@ -54,19 +54,30 @@
 		public String Listar(Model m) {
 			List<Producto> lista = servicio.ListadoProductos();
 			m.addAttribute("productos", lista);
-			return "listarProductos";
+		return "listarProductos"; // Cambia al nombre de tu vista HTML
+			   
 		}
 		
 	
 		// Método para Buscar
 		@GetMapping("/ver/producto/{id}")
 		public String ver(@PathVariable int id, Model m) {
-			List<Categoria> listaCat = servicioCategoria.ListadoCategorias();
-			m.addAttribute("categorias", listaCat);
-			Optional<Producto> p = servicio.BuscarProducto(id);
-			m.addAttribute("producto", p);
-			return "viewProducto";
+		    List<Categoria> listaCat = servicioCategoria.ListadoCategorias();
+		    m.addAttribute("categorias", listaCat);
+		    
+		    Optional<Producto> productoOptional = servicio.BuscarProducto(id);
+		    
+		    if (productoOptional.isPresent()) {
+		        m.addAttribute("producto", productoOptional.get());
+		    } else {
+		        // Manejar el caso en el que el producto no se encuentra
+		        // Puedes redirigir a una página de error o hacer algo más
+		        return "productoNoEncontrado";
+		    }
+
+		    return "viewProducto";
 		}
+
 	
 		// Método para agregar
 		@GetMapping("/nuevoProducto")
@@ -81,9 +92,17 @@
 		@GetMapping("/editar/producto/{id}")
 		public String editar(@PathVariable int id, Model m) {
 			List<Categoria> listaCat = servicioCategoria.ListadoCategorias();
-			Optional<Producto> p = servicio.BuscarProducto(id);
 			m.addAttribute("categorias", listaCat);
-			m.addAttribute("producto", p);
+			
+			Optional<Producto> p = servicio.BuscarProducto(id);
+			 if (p.isPresent()) {
+			        m.addAttribute("producto", p.get());
+			    } else {
+			        // Manejar el caso en el que el producto no se encuentra
+			        // Puedes redirigir a una página de error o hacer algo más
+			        return "productoNoEncontrado";
+			    }
+			
 			return "editarProducto";
 	
 		}

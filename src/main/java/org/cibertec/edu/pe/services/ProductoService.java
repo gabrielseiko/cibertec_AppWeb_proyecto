@@ -61,8 +61,19 @@ public class ProductoService implements IProductoService {
     }
 
 	@Override
-	public List<Producto> buscarPorNombreYCategoria(String Nombre, String NombreCate) {
-		 return data.findByFiltrado(Nombre, NombreCate);
+	public List<Producto> buscarPorCategoria(String NombreCate) {
+		 return data.findByFiltrado(NombreCate);
 	}
+	
+	//REDUCIR STOCK
+	@Override
+    @Transactional
+    public void reducirStock(int idProducto, int cantidad) {
+        Optional<Producto> optionalProducto = data.findById(idProducto);
+        optionalProducto.ifPresent(producto -> {
+            producto.reducirStock(cantidad);
+            Grabar(producto);
+        });
+    }
 
 }
