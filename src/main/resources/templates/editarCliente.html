@@ -26,7 +26,7 @@
             </div>
             <div class="card-body">
 
-                <form th:action="@{/clientes/salvar}" th:object="${cliente}" onsubmit="confirmacion();">
+                <form th:action="@{/clientes/grabar}" th:object="${cliente}" onsubmit="confirmacion();">
                     <label class="mb-1">ID</label>
                     <input type="text" th:field="*{IdCliente}" class="form-control mb-2 col-3" readonly />
 

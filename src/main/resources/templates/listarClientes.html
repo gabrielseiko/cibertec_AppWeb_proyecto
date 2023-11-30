@@ -20,9 +20,8 @@
 
 	<div class="container mt-4">
 		<h1 class="mb-3">Clientes</h1>
-		
-		
-		<div class="mb-3 mt-4 d-flex justify-content-between">		
+		<div class="mb-3 mt-4 d-flex justify-content-between">	
+			<a th:href="@{/clientes/nuevoCliente}" class="btn btn-primary mb-3">Nuevo Cliente</a>	
 			<a th:href="@{/PDFcliente/(format=pdf)}" class="btn btn-danger btn-sm mt-2 mb-2">Exportar a PDF <i class="bi bi-filetype-pdf"></i></a>
 		</div> 
 		

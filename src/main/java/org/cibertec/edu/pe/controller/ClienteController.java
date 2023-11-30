@@ -46,8 +46,9 @@ public class ClienteController {
 	// Método para grabar cliente desde mantenimiento
 	@GetMapping("/salvar")
 	public String salvar(@Validated Cliente c, Model m) {
+		c.setEstado(true);
 		servicio.Grabar(c);
-		return "redirect:/clientes/listar";
+		return "redirect:/listarClientesCarrito";
 	}
 
 	
@@ -64,7 +65,7 @@ public class ClienteController {
 		List<Cliente> lista = servicio.ListadoClientes();
 		m.addAttribute("clientes", lista);
 		servicio.Grabar(c);
-		return "seleccionarCliente";
+		return "redirect:/clientes/listar";
 	}
 
 	// Método para editar
