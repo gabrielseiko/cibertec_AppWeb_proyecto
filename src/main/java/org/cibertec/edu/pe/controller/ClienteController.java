@@ -61,8 +61,10 @@ public class ClienteController {
 	// Método para grabar cliente 
 	@GetMapping("/grabar")
 	public String grabar(@Validated Cliente c, Model m) {
+		List<Cliente> lista = servicio.ListadoClientes();
+		m.addAttribute("clientes", lista);
 		servicio.Grabar(c);
-		return "redirect:/listarClientes";
+		return "seleccionarCliente";
 	}
 
 	// Método para editar
